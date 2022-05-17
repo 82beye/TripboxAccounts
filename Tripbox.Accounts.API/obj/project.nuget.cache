@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "hDeM2G7QVmhPNQmmd/ajk8qvi9OWh5mD0Dlk6/zCzo6rQeZiwt8ZzuH5Ez9B+n6n/XuX+X8b2Xp+VBI6OewAfg==",
+  "success": true,
+  "projectFilePath": "C:\\Tripbox\\TripboxAccounts\\Tripbox.Accounts.API\\Tripbox.Accounts.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\beye82\\.nuget\\packages\\aspnet.security.oauth.kakaotalk\\5.0.0\\aspnet.security.oauth.kakaotalk.5.0.0.nupkg.sha512",
+    "C:\\Users\\beye82\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\beye82\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\beye82\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\beye82\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\beye82\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\beye82\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
