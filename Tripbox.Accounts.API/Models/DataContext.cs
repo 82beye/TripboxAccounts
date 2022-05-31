@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tripbox.Accounts.API.Models.SignalR;
 
-namespace Tripbox.Accounts.API.Models
-{
+namespace Tripbox.Accounts.API.Models;
+
     public class DataContext: DbContext
     {
 
@@ -27,4 +27,4 @@ namespace Tripbox.Accounts.API.Models
 
         public DbSet<SignalRUser> SignalRUsers { get; set; }
     }
-}
+

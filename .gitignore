@@ -1,2 +1,13 @@
-C:\Tripbox\TripboxAccounts\Tripbox.Accounts.API\bin\Debug\net5.0
-C:\Tripbox\TripboxAccounts\Tripbox.Accounts.API\obj\Debug\net5.0
+.gitignore
+.vs/Tripbox.Accounts.API/DesignTimeBuild/.dtbcache.v2
+Tripbox.Accounts.sln
+Tripbox.Accounts.API/Tripbox.Accounts.API.csproj
+Tripbox.Accounts.API/bin/
+Tripbox.Accounts.API/bin/Debug/
+Tripbox.Accounts.API/bin/Debug/net6.0/
+Tripbox.Accounts.API/bin/Relase/
+Tripbox.Accounts.API/bin/Relase/net6.0/
+Tripbox.Accounts.API/obj/
+Tripbox.Accounts.API/obj/Debug/
+Tripbox.Accounts.API/obj/Relase/
+Tripbox.Accounts.API/Properties/

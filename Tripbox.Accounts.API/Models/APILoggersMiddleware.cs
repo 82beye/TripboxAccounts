@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using TripboxCRS_APITripbox.Accounts.API.Models;
+using Tripbox.Accounts.API.Models;
 
 namespace Tripbox.Accounts.API.Models
 {
@@ -65,10 +65,10 @@ namespace Tripbox.Accounts.API.Models
 
                 _apiRequest.Querys = context.Request.Query != null ? JsonConvert.SerializeObject(context.Request.Query).ToString() : "";
 
-                if (_apiRequest.Method.Equals("POST"))
-                {
-                    _apiRequest.Forms = context.Request.Form != null ? JsonConvert.SerializeObject(context.Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString())) : "";
-                }
+                //if (_apiRequest.Method.Equals("POST"))
+                //{
+                //    _apiRequest.Forms = context.Request.Form != null ? JsonConvert.SerializeObject(context.Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString())) : "";
+                //}
                 
                 _apiRequest.RequestDatetime = DateTime.Now;
                 requestTimeStamp = Convert.ToString((int)DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);

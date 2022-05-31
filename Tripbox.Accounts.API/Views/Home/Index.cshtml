@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">로그인 소셜연동</h1>
+</div>
+<div class="jumbotron">
+
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+   <h1>Welcome, @User.Identity.Name</h1>
+   <p>
+   @foreach (var claim in Context.User.Claims)
+   {
+        <div><code>@claim.Type</code>: <strong>@claim.Value</strong></div>
+   }
+   </p>
+   <a class="btn btn-lg btn-danger" href="/signout?returnUrl=%2F">Sign out</a>
+}
+else
+{
+<div class="text-center">
+    <p><a href="javascript:goGoogle();">구글 연동</a></p>
+    <p><a href="javascript:goKakaotalk();">카카오 연동</a></p>
+    <p><a href="javascript:goNaver();">네이버 연동</a></p>
+</div>
+<form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="provider" value="Google" />
+</form>
+<form name="frmKakaotalk" id="frmKakaotalk" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="provider" value="KakaoTalk" />
+</form>
+<form name="frmNaver" id="frmNaver" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="provider" value="Naver" />
+</form>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+function goGoogle() {
+    $('#frmGoogle').submit();
+}
+function goKakaotalk() {
+    $('#frmKakaotalk').submit();
+}
+function goNaver() {
+    $('#frmNaver').submit();
+}
+</script>
+}
+</div>
+
+
+

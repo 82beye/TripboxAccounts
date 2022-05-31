@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Tripbox.Accounts.API.SwaggerConfig;
+using static Tripbox.Accounts.API.Helper.SwaggerConfig;
 
-namespace Tripbox.Accounts.API
-{
+namespace Tripbox.Accounts.API.Helper;
+
     public class SwaggerConfig
     {
         public enum VersioningType
@@ -95,4 +95,3 @@ namespace Tripbox.Accounts.API
             swaggerDoc.Paths = pathLists;
         }
     }
-}
