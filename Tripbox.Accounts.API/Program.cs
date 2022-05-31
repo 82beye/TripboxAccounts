@@ -181,8 +181,10 @@ IConfiguration configuration = app.Configuration;
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-     
+
 }
+
+app.UseDeveloperExceptionPage();
 
 var options = new StaticFileOptions()
 {
