@@ -25,13 +25,16 @@ else
     <p><a href="javascript:goNaver();">네이버 연동</a></p>
 </div>
 <form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
-    <input type="hidden" name="provider" value="Google" />
+    <input type="hidden" name="provider" id="provider" value="Google" />
+    <input type="hidden" name="company_no" id="company_no" value="1" />
 </form>
 <form name="frmKakaotalk" id="frmKakaotalk" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
     <input type="hidden" name="provider" value="KakaoTalk" />
+    <input type="hidden" name="company_no" value="1" />
 </form>
 <form name="frmNaver" id="frmNaver" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
     <input type="hidden" name="provider" value="Naver" />
+    <input type="hidden" name="company_no" value="1" />
 </form>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>

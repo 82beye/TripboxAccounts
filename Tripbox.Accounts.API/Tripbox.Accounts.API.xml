@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tripbox.Accounts.API</name>
+    </assembly>
+    <members>
+        <member name="P:Tripbox.Accounts.API.Models.Auth.Auth.AuAuthenticationType">
+            <summary>
+            Provider
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.Auth.Auth.NameIdentifier">
+            <summary>
+            Provider 식별자
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.Auth.Auth.Name">
+            <summary>
+            이름
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.Auth.Auth.Email">
+            <summary>
+            이메일
+            </summary>
+        </member>
+        <member name="T:Tripbox.Accounts.API.Models.SignalR.SignalrSend">
+            <summary>
+            시그날r 메세지 전송 ...
+            </summary>
+        </member>
+        <member name="T:Tripbox.Accounts.API.Models.SignalR.SignalRUser">
+            <summary>
+            시그날r 사용자
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.SignalR.SignalRUser.clientId">
+            <summary>
+            클라이언트 ID
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.SignalR.SignalRUser.userno">
+            <summary>
+            유저번호
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.SignalR.SignalRUser.path">
+            <summary>
+            경로
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.Models.SignalR.SignalRUser.serverip">
+            <summary>
+            경로
+            </summary>
+        </member>
+        <member name="T:Tripbox.Accounts.API.SignalR.SignalrMessage">
+            <summary>
+            시그날R 메세지 정보
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.SignalR.SignalrMessage.tag">
+            <summary>
+            태그
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.SignalR.SignalrMessage.to_user_no">
+            <summary>
+            받는 사람 유저번호 
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.SignalR.SignalrMessage.from_user_no">
+            <summary>
+            받는 사람 유저번호
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.SignalR.SignalrMessage.message_text">
+            <summary>
+            메세지내용
+            </summary>
+        </member>
+        <member name="T:Tripbox.Accounts.API.SignalR.SignalrMessage2">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Tripbox.Accounts.API.SignalR.SignalrMessage2.message_json">
+            <summary>
+            메세지내용
+            </summary>
+        </member>
+    </members>
+</doc>

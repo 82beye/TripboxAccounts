@@ -35,7 +35,7 @@ namespace Tripbox.Accounts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [MapToApiVersion("1")]
-        public async Task<IActionResult> SignIn([FromForm] string provider)
+        public async Task<IActionResult> SignIn([FromForm] string provider, [FromForm] string company_no)
         {
             // Note: the "provider" parameter corresponds to the external
             // authentication provider choosen by the user agent.
@@ -44,10 +44,14 @@ namespace Tripbox.Accounts.API.Controllers
                 return BadRequest();
             }
 
+            if (string.IsNullOrWhiteSpace(company_no))
+            {
+                return BadRequest();
+            }
+
             var schemes = await HttpContext.GetExternalProvidersAsync();
 
             //_logger.LogInformation($"schemes => {JsonConvert.ToString(schemes)}");
-
 
             if (schemes == null)
             {
@@ -58,7 +62,10 @@ namespace Tripbox.Accounts.API.Controllers
             // provider to redirect the user agent to its own authorization endpoint.
             // Note: the authenticationScheme parameter must match the value configured in Startup.cs
             //return Challenge(new AuthenticationProperties { RedirectUri = "/" }, provider);
-            return Challenge(new AuthenticationProperties { RedirectUri = string.Format("/callback/{0}", provider.ToLower().ToString()) }, provider);
+            return Challenge(new AuthenticationProperties { 
+                                RedirectUri = string.Format("/callback/{0}", provider.ToLower().ToString()),
+                                Items = { { "company_no", company_no } },
+                            }, provider);
             //return Challenge(new AuthenticationProperties { }, provider);
         }
 
@@ -80,10 +87,12 @@ namespace Tripbox.Accounts.API.Controllers
 
         [HttpGet("~/callback/{provider}")]
         [HttpPost("~/callback/{provider}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [MapToApiVersion("1")]
-        public async Task<IActionResult> CallBack(string provider, string code)
+        //public async Task<IActionResult> CallBack(string provider, string code)
+        public async Task<IActionResult> CallBack()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
@@ -99,47 +108,17 @@ namespace Tripbox.Accounts.API.Controllers
                     authModel.Email = claim.Type.IndexOf("/email") > -1 ? claim.Value : authModel.Email;
                 }
             }
-            else
+
+            var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var company_no = authResult.Properties.Items["company_no"].ToString();
+
+            if (authModel == null)
             {
                 return Unauthorized();
             }
-
-            if (provider.ToLower().Equals("google"))
-            {
-                if (accessToken != null)
-                {
-                    return Redirect("~/");
-                } 
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else if (provider.ToLower().Equals("kakaotalk"))
-            {
-                if (accessToken != null)
-                {
-                    return Redirect("~/");
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else if (provider.ToLower().Equals("naver"))
-            {
-                if (accessToken != null)
-                {
-                    return Redirect("~/");
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
             else
             {
-                return BadRequest();
+                return Json(JsonConvert.SerializeObject(authModel));
             }
         }
 
