@@ -1,0 +1,41 @@
+﻿@model Tripbox.Accounts.API.Models.Auth.Account
+@{
+    Layout = null;
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+@if (@ViewData.Model.authenticationtype == "304001")
+{
+<form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="siteid" id="siteid" value="@ViewData.Model.siteid" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="@ViewData.Model.authenticationtype" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="@ViewData.Model.callbackurl" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="@ViewData.Model.callbackurapiurl" />
+</form>
+<script>
+    $('#frmGoogle').submit();
+</script>
+}
+else if (@ViewData.Model.authenticationtype == "304002")
+{
+<form name="frmNaver" id="frmNaver" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="siteid" id="siteid" value="@ViewData.Model.siteid" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="@ViewData.Model.authenticationtype" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="@ViewData.Model.callbackurl" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="@ViewData.Model.callbackurapiurl" />
+</form>
+<script>
+    $('#frmNaver').submit();
+</script>
+}
+else if (@ViewData.Model.authenticationtype == "304003")
+{
+<form name="frmKakaotalk" id="frmKakaotalk" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="siteid" id="siteid" value="@ViewData.Model.siteid" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="@ViewData.Model.authenticationtype" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="@ViewData.Model.callbackurl" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="@ViewData.Model.callbackurapiurl" />
+</form>    
+<script>
+    $('#frmKakaotalk').submit();
+</script>
+}

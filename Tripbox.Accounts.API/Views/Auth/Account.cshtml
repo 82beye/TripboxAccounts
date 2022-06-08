@@ -1,0 +1,58 @@
+﻿@model Tripbox.Accounts.API.Models.Auth.Account
+@{
+    ViewData["Title"] = "Tripbox.Accounts.API.Models.Auth.Account";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+@if (Model?.authenticationtype == "304001")
+{
+<form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="siteid" id="siteid" value="@Model.siteid" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="@Model.authenticationtype" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="@Model.callbackurl" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="@Model.callbackurapiurl" />
+</form>
+<script>
+    $('#frmGoogle').submit();
+</script>
+}
+@if (Model?.authenticationtype == "304002")
+{
+<form name="frmNaver" id="frmNaver" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="siteid" id="siteid" value="@Model.siteid" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="@Model.authenticationtype" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="@Model.callbackurl" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="@Model.callbackurapiurl" />
+</form>
+<script>
+    $('#frmNaver').submit();
+</script>
+}
+@if (Model?.authenticationtype == "304003")
+{
+<form name="frmKakaotalk" id="frmKakaotalk" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
+    <input type="hidden" name="siteid" id="siteid" value="@Model.siteid" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="@Model.authenticationtype" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="@Model.callbackurl" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="@Model.callbackurapiurl" />
+</form>    
+<script>
+    $('#frmKakaotalk').submit();
+</script>
+}    
+</body>
+</html>

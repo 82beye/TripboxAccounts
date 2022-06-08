@@ -3,10 +3,15 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Text.Json;
 using Tripbox.Accounts.API.Extensions;
 using Tripbox.Accounts.API.Models;
 using System.Threading.Tasks;
 using Tripbox.Accounts.API.Models.Auth;
+using Microsoft.AspNetCore.Http.Extensions;
+using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Tripbox.Accounts.API.Controllers
 {
@@ -35,38 +40,49 @@ namespace Tripbox.Accounts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [MapToApiVersion("1")]
-        public async Task<IActionResult> SignIn([FromForm] string provider, [FromForm] string company_no)
+        public async Task<IActionResult> SignIn([FromForm] Account account)
         {
-            // Note: the "provider" parameter corresponds to the external
-            // authentication provider choosen by the user agent.
-            if (string.IsNullOrWhiteSpace(provider))
+            if (string.IsNullOrWhiteSpace(account.authenticationtype))
             {
                 return BadRequest();
             }
 
-            if (string.IsNullOrWhiteSpace(company_no))
+            if (string.IsNullOrWhiteSpace(account.siteid))
             {
                 return BadRequest();
             }
 
             var schemes = await HttpContext.GetExternalProvidersAsync();
 
-            //_logger.LogInformation($"schemes => {JsonConvert.ToString(schemes)}");
-
             if (schemes == null)
             {
                 return BadRequest();
             }
 
-            // Instruct the middleware corresponding to the requested external identity
-            // provider to redirect the user agent to its own authorization endpoint.
-            // Note: the authenticationScheme parameter must match the value configured in Startup.cs
-            //return Challenge(new AuthenticationProperties { RedirectUri = "/" }, provider);
+            string provider = string.Empty;
+
+            if (account.authenticationtype.Equals("304001"))
+            {
+                provider = "Google";
+            }
+            else if (account.authenticationtype.Equals("304002"))
+            {
+                provider = "Naver";
+            }
+            else if (account.authenticationtype.Equals("304003"))
+            {
+                provider = "KakaoTalk";
+            }
+
             return Challenge(new AuthenticationProperties { 
-                                RedirectUri = string.Format("/callback/{0}", provider.ToLower().ToString()),
-                                Items = { { "company_no", company_no } },
-                            }, provider);
-            //return Challenge(new AuthenticationProperties { }, provider);
+                            RedirectUri = string.Format("/callback/{0}", provider.ToLower().ToString()),
+                            Items = { 
+                                { "siteid", account.siteid },
+                                { "authenticationtype", account.authenticationtype },
+                                { "callbackurl", account.callbackurl },
+                                { "callbackurapiurl", account.callbackurapiurl }
+                            },
+                        }, provider);
         }
 
 
@@ -77,9 +93,6 @@ namespace Tripbox.Accounts.API.Controllers
         [MapToApiVersion("1")]
         public IActionResult SignOutCurrentUser()
         {
-            // Instruct the cookies middleware to delete the local cookie created`
-            // when the user agent is redirected from the external identity provider
-            // after a successful authentication flow (e.g Google or Facebook).
             return SignOut(new AuthenticationProperties { RedirectUri = "/" },
                 CookieAuthenticationDefaults.AuthenticationScheme);
         }
@@ -91,7 +104,6 @@ namespace Tripbox.Accounts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [MapToApiVersion("1")]
-        //public async Task<IActionResult> CallBack(string provider, string code)
         public async Task<IActionResult> CallBack()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -110,7 +122,10 @@ namespace Tripbox.Accounts.API.Controllers
             }
 
             var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var company_no = authResult.Properties.Items["company_no"].ToString();
+            var siteid = authResult.Properties.Items["siteid"].ToString();
+            var authenticationtype = authResult.Properties.Items["authenticationtype"].ToString();
+            var callbackurl = authResult.Properties.Items["callbackurl"].ToString();
+            var callbackurapiurl = authResult.Properties.Items["callbackurapiurl"].ToString();
 
             if (authModel == null)
             {
@@ -118,9 +133,39 @@ namespace Tripbox.Accounts.API.Controllers
             }
             else
             {
-                return Json(JsonConvert.SerializeObject(authModel));
+                return Redirect(callbackurl);
             }
+        }
+
+        [HttpPost("~/Account")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [MapToApiVersion("1")]
+        public async Task<IActionResult> Account([FromForm] Account account)
+        {
+            //ViewBag.siteid = account.siteid;
+            //ViewBag.authenticationtype = account.authenticationtype;
+            //ViewBag.callbackurl = account.callbackurl;
+            //ViewBag.callbackurapiurl = account.callbackurapiurl;
+            ViewData["Account"] = account;
+
+            var absoluteUri = string.Concat(
+                                    HttpContext.Request.Scheme,
+                                    "://",
+                                    HttpContext.Request.Host.ToUriComponent(),
+                                    "/Auth");
+
+            var json = JsonConvert.SerializeObject(account).ToString();
+            var values = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+
+            var url = QueryHelpers.AddQueryString(absoluteUri, values);
+
+            return View("Account", account);                      
+            //return RedirectPermanent(url);
         }
 
     }
 }
+

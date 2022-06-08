@@ -179,12 +179,10 @@ var app = builder.Build();
 IConfiguration configuration = app.Configuration;
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-
+    app.UseDeveloperExceptionPage();
 }
-
-app.UseDeveloperExceptionPage();
 
 var options = new StaticFileOptions()
 {
@@ -229,7 +227,7 @@ app.UseHttpsRedirection();
 app.UseCookiePolicy();
 app.UseCors("CorsPolicy");
 
-app.UseMiddleware<APILoggersMiddleware>();
+//app.UseMiddleware<APILoggersMiddleware>();
 
 app.UseEndpoints(endpoints =>
 {
@@ -237,6 +235,10 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
     endpoints.MapRazorPages();
 });
+
+//app.MapControllerRoute(
+//    name: "Auth",
+//    pattern: "{controller=Auth}/{action=Account}");
 
 app.MapControllerRoute(
     name: "CallBack",
