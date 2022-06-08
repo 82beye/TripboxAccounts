@@ -236,9 +236,9 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-//app.MapControllerRoute(
-//    name: "Auth",
-//    pattern: "{controller=Auth}/{action=Account}");
+app.MapControllerRoute(
+    name: "Default",
+    pattern: "{controller=Home}/{action=Index}");
 
 app.MapControllerRoute(
     name: "CallBack",
