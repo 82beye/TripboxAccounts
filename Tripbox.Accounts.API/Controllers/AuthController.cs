@@ -109,6 +109,7 @@ namespace Tripbox.Accounts.API.Controllers
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
             Auth authModel = new Auth();
+            Account account = new Account();
 
             if (User?.Identity?.IsAuthenticated ?? false)
             {
@@ -120,20 +121,34 @@ namespace Tripbox.Accounts.API.Controllers
                     authModel.Email = claim.Type.IndexOf("/email") > -1 ? claim.Value : authModel.Email;
                 }
             }
-
+            
             var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var siteid = authResult.Properties.Items["siteid"].ToString();
-            var authenticationtype = authResult.Properties.Items["authenticationtype"].ToString();
-            var callbackurl = authResult.Properties.Items["callbackurl"].ToString();
-            var callbackurapiurl = authResult.Properties.Items["callbackurapiurl"].ToString();
 
-            if (authModel == null)
+            account.siteid = authResult.Properties.Items["siteid"].ToString();
+            account.authenticationtype = authResult.Properties.Items["authenticationtype"].ToString();
+            account.callbackurl = authResult.Properties.Items["callbackurl"].ToString();
+            account.callbackurapiurl = authResult.Properties.Items["callbackurapiurl"].ToString();
+
+            if (authModel == null || account == null)
             {
                 return Unauthorized();
             }
             else
             {
-                return Redirect(callbackurl);
+                var absoluteUri = string.Concat(account.callbackurapiurl);
+
+                var json = JsonConvert.SerializeObject(authModel).ToString();
+                var values = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+
+                var json2 = JsonConvert.SerializeObject(account).ToString();
+                var values2 = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json2);
+
+                Dictionary<String, String> allTables = new Dictionary<String, String>();
+                allTables = values.Union(values2).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+                var url = QueryHelpers.AddQueryString(absoluteUri, allTables);
+
+                return Redirect(url);
             }
         }
 
