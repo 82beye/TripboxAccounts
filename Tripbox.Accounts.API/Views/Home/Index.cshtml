@@ -21,21 +21,26 @@ else
 {
 <div class="text-center">
     <p><a href="javascript:goGoogle();">구글 연동</a></p>
-    <!--<p><a href="javascript:goKakaotalk();">카카오 연동</a></p>
-    <p><a href="javascript:goNaver();">네이버 연동</a></p>-->
+    <p><a href="javascript:goKakaotalk();">카카오 연동</a></p>
+    <p><a href="javascript:goNaver();">네이버 연동</a></p>
 </div>
-<!--
-<form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
-    <input type="hidden" name="provider" id="provider" value="Google" />
-    <input type="hidden" name="company_no" id="company_no" value="1" />
+<form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/Account">
+    <input type="hidden" name="siteid" id="siteid" value="1" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="304001" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="https://www.gogle.com" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="https://www.gogle.com" />
 </form>
-<form name="frmKakaotalk" id="frmKakaotalk" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
-    <input type="hidden" name="provider" value="KakaoTalk" />
-    <input type="hidden" name="company_no" value="1" />
+<form name="frmNaver" id="frmNaver" method="post" action="https://tripboxaccounts.azurewebsites.net/Account">
+    <input type="hidden" name="siteid" id="siteid" value="1" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="304002" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="https://www.naver.com" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="https://www.naver.com" />
 </form>
-<form name="frmNaver" id="frmNaver" method="post" action="https://tripboxaccounts.azurewebsites.net/signin">
-    <input type="hidden" name="provider" value="Naver" />
-    <input type="hidden" name="company_no" value="1" />
+<form name="frmKakaotalk" id="frmKakaotalk" method="post" action="https://tripboxaccounts.azurewebsites.net/Account">
+    <input type="hidden" name="siteid" id="siteid" value="1" />
+    <input type="hidden" name="authenticationtype" id="authenticationtype" value="304003" />
+    <input type="hidden" name="callbackurl" id="callbackurl" value="https://www.kakao.com" />
+    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="https://www.kakao.com" />
 </form>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
@@ -47,19 +52,6 @@ function goKakaotalk() {
 }
 function goNaver() {
     $('#frmNaver').submit();
-}
-</script>
--->
-<form name="frmGoogle" id="frmGoogle" method="post" action="https://tripboxaccounts.azurewebsites.net/Account">
-    <input type="hidden" name="siteid" id="siteid" value="1" />
-    <input type="hidden" name="authenticationtype" id="authenticationtype" value="304001" />
-    <input type="hidden" name="callbackurl" id="callbackurl" value="https://www.naver.com" />
-    <input type="hidden" name="callbackurapiurl" id="callbackurapiurl" value="https://www.kakao.com" />
-</form>
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-function goGoogle() {
-    $('#frmGoogle').submit();
 }
 </script>
 }

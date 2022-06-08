@@ -145,25 +145,22 @@ namespace Tripbox.Accounts.API.Controllers
         [MapToApiVersion("1")]
         public async Task<IActionResult> Account([FromForm] Account account)
         {
-            //ViewBag.siteid = account.siteid;
-            //ViewBag.authenticationtype = account.authenticationtype;
-            //ViewBag.callbackurl = account.callbackurl;
-            //ViewBag.callbackurapiurl = account.callbackurapiurl;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             ViewData["Account"] = account;
 
-            var absoluteUri = string.Concat(
-                                    HttpContext.Request.Scheme,
-                                    "://",
-                                    HttpContext.Request.Host.ToUriComponent(),
-                                    "/Auth");
-
-            var json = JsonConvert.SerializeObject(account).ToString();
-            var values = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-
-            var url = QueryHelpers.AddQueryString(absoluteUri, values);
-
-            return View("Account", account);                      
-            //return RedirectPermanent(url);
+            if (account.authenticationtype != null)
+            {
+                return View("Account", account);
+            } 
+            else
+            {
+                return BadRequest();
+            }
+            
         }
 
     }
