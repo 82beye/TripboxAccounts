@@ -80,7 +80,7 @@ namespace Tripbox.Accounts.API.Controllers
                                 { "siteid", account.siteid },
                                 { "authenticationtype", account.authenticationtype },
                                 { "callbackurl", account.callbackurl },
-                                { "callbackurapiurl", account.callbackurapiurl }
+                                { "callbackapiurl", account.callbackapiurl }
                             },
                         }, provider);
         }
@@ -127,7 +127,7 @@ namespace Tripbox.Accounts.API.Controllers
             account.siteid = authResult.Properties.Items["siteid"].ToString();
             account.authenticationtype = authResult.Properties.Items["authenticationtype"].ToString();
             account.callbackurl = authResult.Properties.Items["callbackurl"].ToString();
-            account.callbackurapiurl = authResult.Properties.Items["callbackurapiurl"].ToString();
+            account.callbackapiurl = authResult.Properties.Items["callbackapiurl"].ToString();
 
             if (authModel == null || account == null)
             {
@@ -135,7 +135,7 @@ namespace Tripbox.Accounts.API.Controllers
             }
             else
             {
-                var absoluteUri = string.Concat(account.callbackurapiurl);
+                var absoluteUri = string.Concat(account.callbackapiurl);
 
                 var json = JsonConvert.SerializeObject(authModel).ToString();
                 var values = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json);

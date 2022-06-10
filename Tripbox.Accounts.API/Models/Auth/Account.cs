@@ -8,6 +8,6 @@
 
         public string callbackurl { get; set; }
 
-        public string callbackurapiurl { get; set; }
+        public string callbackapiurl { get; set; }
 }
 }
