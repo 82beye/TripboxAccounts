@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using System.Web;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.WebUtilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Tripbox.Accounts.API.Extensions;
 using Tripbox.Accounts.API.Models;
-using System.Threading.Tasks;
 using Tripbox.Accounts.API.Models.Auth;
-using Microsoft.AspNetCore.Http.Extensions;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace Tripbox.Accounts.API.Controllers
 {
@@ -91,9 +92,9 @@ namespace Tripbox.Accounts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [MapToApiVersion("1")]
-        public IActionResult SignOutCurrentUser()
+        public IActionResult SignOutCurrentUser(string returnURL)
         {
-            return SignOut(new AuthenticationProperties { RedirectUri = "/" },
+            return SignOut(new AuthenticationProperties { RedirectUri = HttpUtility.UrlDecode(returnURL) },
                 CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
