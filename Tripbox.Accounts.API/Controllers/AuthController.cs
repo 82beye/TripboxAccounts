@@ -157,8 +157,8 @@ namespace Tripbox.Accounts.API.Controllers
                 var json2 = JsonConvert.SerializeObject(account).ToString();
                 var values2 = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json2);
 
-                var json3 = string.Format("amodel={0}", (authModel != null) ? JsonConvert.SerializeObject(authModel).ToString() : "");
-                var values3 = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json3);
+                //var json3 = string.Format("amodel={0}", (authModel != null) ? JsonConvert.SerializeObject(authModel).ToString() : "");
+                //var values3 = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json3);
 
                 Dictionary <String, String> allTables = new Dictionary<String, String>();
                 //allTables = values.Union(values2).Union(values3).ToDictionary(pair => pair.Key, pair => pair.Value);
