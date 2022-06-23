@@ -161,7 +161,8 @@ namespace Tripbox.Accounts.API.Controllers
                 var values3 = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json3);
 
                 Dictionary <String, String> allTables = new Dictionary<String, String>();
-                allTables = values.Union(values2).Union(values3).ToDictionary(pair => pair.Key, pair => pair.Value);
+                //allTables = values.Union(values2).Union(values3).ToDictionary(pair => pair.Key, pair => pair.Value);
+                allTables = values.Union(values2).ToDictionary(pair => pair.Key, pair => pair.Value);
 
                 var url = QueryHelpers.AddQueryString(absoluteUri, allTables);
 
