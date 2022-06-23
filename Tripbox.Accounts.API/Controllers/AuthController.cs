@@ -94,8 +94,21 @@ namespace Tripbox.Accounts.API.Controllers
         [MapToApiVersion("1")]
         public IActionResult SignOutCurrentUser(string returnURL)
         {
-            return SignOut(new AuthenticationProperties { RedirectUri = HttpUtility.UrlDecode(returnURL) },
-                CookieAuthenticationDefaults.AuthenticationScheme);
+            IActionResult result;
+
+            if (!string.IsNullOrEmpty(returnURL)) {
+                result = SignOut(new AuthenticationProperties
+                {
+                    RedirectUri = HttpUtility.UrlDecode(returnURL),
+                    AllowRefresh = true
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+            }
+            else
+            {
+                result = SignOut();
+            }
+
+            return result;
         }
 
 
